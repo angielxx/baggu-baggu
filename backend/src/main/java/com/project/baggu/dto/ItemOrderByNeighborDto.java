@@ -14,6 +14,5 @@ public class ItemOrderByNeighborDto {
   private String title;
   private LocalDateTime createdAt;
   private int state;
-  private String itemImgUrl;
 
 }

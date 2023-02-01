@@ -17,7 +17,6 @@ public class ItemDetailDto {
   private Long userIdx;
   private String nickname;
   private String info;
-  private String profileImgUrl;
 
   //아이템 정보
   private String title;
@@ -27,7 +26,6 @@ public class ItemDetailDto {
   private LocalDateTime modifiedAt;
   private String content;
   private int tradeState;
-  private String itemImgUrl;
   private ArrayList<UserDto> requestUserList = new ArrayList<>();
 
 }
