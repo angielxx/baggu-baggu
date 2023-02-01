@@ -15,6 +15,5 @@ public class UserRegistItemDto {
   private String title;
   private CategoryType category;
   private String content;
-  private List<MultipartFile> itemImges;
-  private int itemFirstImgIdx;
+//  private List<MultipartFile> itemImages;
 }

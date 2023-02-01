@@ -18,8 +18,7 @@ function BottomNav() {
   if (
     location.startsWith('/start') ||
     location.startsWith('/item') ||
-    location.startsWith('/userReview') ||
-    location.startsWith('/bagguReview') ||
+    location.startsWith('/review') ||
     location.startsWith('/chat/')
   ) {
     return null;
