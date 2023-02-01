@@ -12,7 +12,8 @@ function ItemCreate() {
   const [itemImageError, setItemImageError] = useState('');
   const [itemCategories, setItemCategories] = useState('');
   const [itemCategoriesError, setItemCategoriesError] = useState('');
-  // const [].
+  //forstaging
+  // const []
   const handleItemImage = event => {
     setItemImage(event.target.files);
   };

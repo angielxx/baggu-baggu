@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import TabBarItem from './TabBarItem';
+//forstaging
 
 function TabBar({ tabNames, getIndex }) {
   const [index, setIndex] = useState(0);

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import TopBar2 from '../../components/common/TopBar2';
 import UserInfo from 'components/common/UserInfo';
+//forstaging
 // 유저 정보 props 받아오기
 function MyProfile({ user }) {
   return (

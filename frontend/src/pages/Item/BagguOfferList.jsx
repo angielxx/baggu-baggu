@@ -1,5 +1,6 @@
 import React from 'react';
 import BagguOfferListItem from './BagguOfferListItem';
+//forstaging
 function BagguOfferList({ offers }) {
   return (
     <div>

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import TopBar2 from 'components/common/TopBar2';
 
+//forstaging
 function Baggu() {
   const [feeds, setFeeds] = useState([]);
   async function getFeeds() {

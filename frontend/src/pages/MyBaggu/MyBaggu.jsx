@@ -5,6 +5,7 @@ import FeedList from 'components/common/FeedList';
 import TabBar from 'components/common/TabBar';
 import axios from 'axios';
 
+//forstaging
 function MyBaggu() {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(0);

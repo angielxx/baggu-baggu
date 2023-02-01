@@ -5,6 +5,7 @@ import axios from 'axios';
 import ProductList from 'components/common/ProductList';
 import FeedList from 'components/common/FeedList';
 import TabBar from 'components/common/TabBar';
+//forstaging
 
 function Home() {
   // const [movies, setMovies] = useState([]);

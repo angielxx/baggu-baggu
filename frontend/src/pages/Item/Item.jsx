@@ -7,6 +7,7 @@ import TopBar2 from '../../components/common/TopBar2';
 import UserInfo from 'components/common/UserInfo';
 import BagguOfferList from './BagguOfferList';
 
+//forstaging
 function Item() {
   const { id } = useParams();
   const { data: movie, status } = useQuery('getMovie', async () => {

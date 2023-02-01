@@ -1,5 +1,6 @@
 import React from 'react';
 import FavoriteListItem from './FavoriteListItem';
+//forstaging
 function FavoriteList({ items }) {
   return (
     <div>
