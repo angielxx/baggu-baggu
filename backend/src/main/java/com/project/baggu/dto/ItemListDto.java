@@ -18,5 +18,4 @@ public class ItemListDto {
   private LocalDateTime createdAt;
   private int state;
   private boolean isValid;
-  private String itemImgUrl;
 }

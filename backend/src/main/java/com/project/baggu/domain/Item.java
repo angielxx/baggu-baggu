@@ -98,10 +98,11 @@ public class Item extends BaseTimeEntity {
 
   @JsonIgnore
   @OneToMany(mappedBy = "item")
+  @Builder.Default
   private List<ItemImage> itemImages = new ArrayList<>();
 
-  @Column(name = "first_img")
-  private String firstImg;
+  @Column(name = "first_image")
+  private String firstImage;
 
   public void setUser(User user) {
     this.user = user;
