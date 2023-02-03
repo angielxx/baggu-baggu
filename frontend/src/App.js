@@ -65,20 +65,24 @@ function App() {
             <Route path="introduce" element={<StartIntroduce />} />
           </Route>
           <Route path="/kakaoLogin" element={<KakaoLogin />} />
+          {/* 홈 */}
           <Route path="/" element={<Home />} />
-          <Route path="/userReview" element={<UserReview />} />
-          <Route path="/bagguReview" element={<BagguReview />} />
+          {/* 아이템 */}
           <Route path="/item/:id" element={<Item />} />
           <Route path="/item/create" element={<ItemCreate />} />
+          {/* 나의 바꾸 */}
           <Route path="/mybaggu" element={<MyBaggu />} />
+          {/* 채팅 */}
           <Route path="/chat" element={<Chat />} />
           <Route path="/chat/:id" element={<ChatDetail />} />
+          {/* 내 프로필 */}
           <Route path="/myprofile" element={<MyProfile />} />
           <Route path="/myprofile/edit" element={<MyProfileEdit />} />
           <Route path="/myprofile/:id/baggu" element={<Baggu />} />
           <Route path="/myprofile/:id/myreview" element={<Myreview />} />
           <Route path="/myprofile/:id/favorite" element={<Favorite />} />
           <Route path="/myprofile/:id/town" element={<ProfileTown />} />
+          {/* 유저상세 */}
           <Route path="/user/:id" element={<UserDetail />} />
           {/* 바꾸신청 */}
           <Route path="/makeRequest/:itemIdx" element={<MakeRequest />} />
@@ -86,6 +90,9 @@ function App() {
             path="/makeRequest/message/:itemIdx"
             element={<MakeRequestMessage />}
           />
+          {/* 리뷰생성 */}
+          <Route path="/userReview" element={<UserReview />} />
+          <Route path="/bagguReview" element={<BagguReview />} />
         </Routes>
         <BottomNav />
       </BrowserRouter>
