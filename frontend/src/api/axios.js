@@ -11,8 +11,10 @@ const axiosApi = (url, options) => {
 
 // 인증이 필요한 axios 인스턴스
 const axiosAuthApi = (url, options) => {
-  // 토큰 가져오는 코드 수정 필요
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
+  // 임시토큰
+  const token =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWR4IjozLCJyb2xlIjoiVFlQRTUiLCJpYXQiOjE2NzUwNjA1MzQsImV4cCI6MTY3NzY1MjUzNH0.45BdBuqZeNQFO8zuDGYgCK2laTVvgJbIwcMqzfKQuNU';
   const instance = axios.create({
     baseURL: url,
     headers: { Authorization: token },
