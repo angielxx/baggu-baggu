@@ -16,10 +16,10 @@ public class CorsConfig {
     CorsConfiguration config = new CorsConfiguration();
 
     //origin 설정
-    config.addAllowedOriginPattern("*");
+//    config.addAllowedOriginPattern("*");
 //    config.addAllowedOrigin("https://test.baggu.shop"); //test 서버
 //    config.addAllowedOrigin("http://test.baggu.shop"); //test 서버
-//    config.addAllowedOrigin("http://localhost:3000"); //frontend local test용
+    config.addAllowedOrigin("http://localhost:3000"); //frontend local test용
 //    config.addAllowedOrigin("http://localhost:8080"); //backend local test용
 //    config.addAllowedOrigin("https://baggu.shop"); //deploy 서버
 //    config.addAllowedOrigin("http://baggu.shop"); //deploy 서버
