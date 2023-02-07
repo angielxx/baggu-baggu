@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Home from 'pages/Home/Home';
 import Start from 'pages/Start/Start';
@@ -26,9 +27,16 @@ import ChatDetail from 'pages/Chat/ChatDetail';
 import UserReview from 'pages/Review/UserReview';
 import BagguReview from 'pages/Review/BagguReview';
 import KakaoLogin from 'pages/Start/KakaoLogin';
+import MakeRequest from 'pages/MakeRequest/MakeRequest';
+import MakeRequestMessage from 'pages/MakeRequest/MakeRequestMessage';
+import Notification from 'pages/Notification/Notification';
 
 // Store
 import { signUpStore, userStore } from 'store/store';
+import { notificationStore } from 'store/notication';
+
+// API
+import requests from 'api/config';
 
 // react-query
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -36,8 +44,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 // styled component
 import tw, { styled, css } from 'twin.macro';
-import MakeRequest from 'pages/MakeRequest/MakeRequest';
-import MakeRequestMessage from 'pages/MakeRequest/MakeRequestMessage';
 
 const queryClient = new QueryClient();
 
@@ -47,8 +53,55 @@ const Wrapper = styled.div`
     height: calc(100% - 60px - 98px);
   `}
 `;
+
+// Main Component
 function App() {
   const { saveToken, saveUserIdx, saveDong } = userStore(state => state);
+  const userIdx = window.localStorage.getItem('userIdx');
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+
+  // 알림서버와의 구독 상태
+  const [listeningToNotify, setListeningToNotify] = useState(false);
+  // 알림 리스트 전역 저장소
+  const { unread, saveNotify, addNotify, countUnread } = notificationStore(
+    state => state
+  );
+  let notifyEvent = undefined;
+
+  useEffect(() => {
+    // 로그인을 했고, 알림서버를 구독하고 있지 않은 상태라면 연결
+    if (isLoggedIn && !listeningToNotify) {
+      notifyEvent = new EventSource(
+        `${requests.notify_base_url + requests.GET_NOTIFY(userIdx)}`
+      );
+
+      // 최초 연결
+      notifyEvent.onopen = event => {
+        // console.log('open : notify connection', event);
+      };
+
+      // 새로운 알림 도착
+      notifyEvent.onmessage = event => {
+        const parsedData = JSON.parse(event.data);
+        // console.log('new received data', event);
+        // console.log('new received notify', parsedData);
+        addNotify(parsedData);
+      };
+
+      // 에러 발생
+      notifyEvent.onerror = event => {
+        // console.log('closed : notify connection');
+        notifyEvent.close();
+      };
+
+      setListeningToNotify(true);
+    }
+
+    return () => {
+      notifyEvent.close();
+      // console.log('useEffect ended & notify closed');
+    };
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient} contextSharing={true}>
@@ -93,6 +146,8 @@ function App() {
           {/* 리뷰생성 */}
           <Route path="/userReview" element={<UserReview />} />
           <Route path="/bagguReview" element={<BagguReview />} />
+          {/* 알림 */}
+          <Route path="/notification" element={<Notification />} />
         </Routes>
         <BottomNav />
       </BrowserRouter>

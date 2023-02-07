@@ -2,10 +2,13 @@
 // 각 key의 상단의 주석으로 API 명세 상 API 제목 명시함
 const requests = {
   // baggu 공식
-  base_url: 'http://baggu.shop/api',
+  base_url: 'https://test.baggu.shop/api',
+
+  // 알림 서버 URL
+  notify_base_url: 'https://baggu.shop/notifyapi',
 
   // 소정님 IP
-  // base_url: 'http://70.12.247.158:8080',
+  // base_url: 'http://70.12.247.158:9999',
 
   // 안채님 IP
   // base_url: 'http://70.12.247.174:8080',
@@ -27,12 +30,14 @@ const requests = {
   },
 
   // 동네의 최근 등록된 물품 목록 (GET)
-  GET_MAIN_ITEM(dong) {
-    return `/baggu/item?dong=${dong}`;
+  GET_MAIN_ITEM(dong, page) {
+    return `/baggu/item?dong=${dong}&page=${page}`;
   },
 
   // 최근 성사된 바꾸 목록 (GET)
-  GET_MAIN_TRADE: `/baggu/tradeFin`,
+  GET_MAIN_TRADE(page) {
+    return `/baggu/tradeFin?page=${page}`;
+  },
 
   //피드 좋아요 (POST), 피드 좋아요 취소 (DELETE)
   FEED_LIKE(tradeFinIdx) {
@@ -121,6 +126,17 @@ const requests = {
 
   // 거래 완료 후 거래에 대한 후기 작성 (POST)
   POST_TRADE_REVIEW: `/baggu/tradeFin/reviewText`,
+
+  // 최근 알림 (알림 서버와 연결)
+  GET_NOTIFY(userIdx) {
+    return `/baggu/notify/${userIdx}`;
+  },
+
+  // 교환 신청시 알림 서버에 post
+  // 알림 읽음 처리시 put, data는 notifyIdx
+  POST_NOTIFY: '/baggu/notify',
+
+  // 알림 읽음처리 (PUT)
 };
 
 export default requests;

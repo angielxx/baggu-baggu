@@ -1,11 +1,6 @@
 spring:
   profiles:
     include: SECRET
-
-
----
-#공통 변수
-spring:
   servlet:
     multipart:
       max-file-size: 10MB
@@ -39,8 +34,9 @@ spring:
           kakao:
             authorization-grant-type: authorization_code
             client-id: dcea227af64fcf0366810e14b850e4d6
-#            redirect-uri: http://localhost:3000/kakaoLogin
-            redirect-uri: http://baggu.shop/kakaoLogin
+            # redirect-uri: https://test.baggu.shop/kakaoLogin
+            redirect-uri: http://localhost:3000/kakaoLogin
+#            redirect-uri: http://baggu.shop/kakaoLogin
             # redirect-uri: http://baggu-backend:8080/baggu/auth/callback/kakao
             client-authentication-method: POST
             client-name: kakao
@@ -75,3 +71,10 @@ cloud:
         false
 server:
   port: 9999
+
+#swagger
+springfox:
+  documentation:
+    swagger:
+      v2:
+        path: /swagger/api-docs

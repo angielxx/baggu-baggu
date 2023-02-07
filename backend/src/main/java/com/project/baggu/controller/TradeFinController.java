@@ -1,7 +1,7 @@
 package com.project.baggu.controller;
 
 import com.project.baggu.dto.*;
-import com.project.baggu.dto.BaseResponseStatus;
+import com.project.baggu.exception.BaseResponseStatus;
 import com.project.baggu.exception.BaseException;
 import com.project.baggu.service.TradeFinService;
 import java.util.List;
@@ -18,19 +18,25 @@ public class TradeFinController {
 
   private final TradeFinService tradeFinService;
 
-  // [GET] /baggu/tradeFin?userIdx={userIdx}
+  // [GET] /baggu/tradeFin?userIdx={userIdx}&page={page}
   //최근 성사된 거래(바꾸) 리스트를 받는다.
   @GetMapping
-  public List<TradeFinDto> getTradeFinList(@RequestParam(required = false, name = "userIdx")Long userIdx){
+  public List<TradeFinDto> getTradeFinList(@RequestParam(required = false, name = "userIdx")Long userIdx,
+      @RequestParam(required = false, name="page") Integer page){
+
     Long curUserIdx = Long.parseLong(SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString());
+
+    if(page==null) {
+      page = 0;
+    }
 
     //userIdx가 존재하지 않다면 전체 TradeFinDto 리스트를 반환
     if(userIdx==null){
-      return tradeFinService.getTradeFinList(curUserIdx);
+      return tradeFinService.getTradeFinList(curUserIdx, page);
     }
 
     //userIdx가 존재한다면 특정 유저의 TradeFinDto 리스트를 반환
-    return tradeFinService.getTradeFinList(userIdx, curUserIdx);
+    return tradeFinService.getTradeFinList(userIdx, curUserIdx, page);
   }
 
   //[POST] /baggu/tradeFin/reviewText

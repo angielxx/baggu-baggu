@@ -14,12 +14,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class TradeFinDto {
+  private Long tradeFinIdx;
   private String requestNickname;
   private String receiveNickname;
+  private Long requestUserIdx;
+  private Long receiveUserIdx;
   private Long requestItemIdx;
   private Long receiveItemIdx;
   private String requestItemImgUrl;
   private String receiveItemImgUrl;
+  private String requestUserImgUrl;
+  private String receiveUserImgUrl;
   private int heartCount;
   @JsonDeserialize(
       using = LocalDateTimeDeserializer.class
