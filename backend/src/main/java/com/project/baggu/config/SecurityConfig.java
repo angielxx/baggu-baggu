@@ -85,6 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .exceptionHandling()
         .authenticationEntryPoint(new JwtTokenAuthenticationEntryPoint());
 
+
     //logout 설정
     http.logout()
         .logoutUrl("/baggu/auth/logout")
