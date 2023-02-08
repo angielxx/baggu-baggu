@@ -1,5 +1,5 @@
 import requests from 'api/config';
-import { authInstance, defaultInstance, notifyAuthApi } from '../axios';
+import { authInstance, defaultInstance } from '../axios';
 
 // 알림서버로 post (새로운 알림을 등록)
 export const post_notify = async data => {
@@ -29,10 +29,20 @@ export const put_notify = async data => {
           }
     */
   try {
-    // console.log('send request : put notify');
-    const response = await notifyAuthApi.put('/baggu/notify', data);
-    // 응답값으로 받은 notifyIdx로 중앙에 저장된 알림 읽음 처리
-    return response.data.notifyIdx;
+    console.log('send request : put notify');
+    await authInstance.put('/baggu/notify', data);
+    console.log('success request : put notify');
+  } catch (error) {
+    throw error;
+  }
+};
+
+// 알림 서버와 연결
+export const get_notify = async userIdx => {
+  try {
+    // 42는 임시 userIdx
+    const { data } = await authInstance.get(requests.GET_NOTIFY(42));
+    return data;
   } catch (error) {
     throw error;
   }

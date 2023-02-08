@@ -10,8 +10,6 @@ import com.project.baggu.dto.UploadImagesDto;
 import com.project.baggu.dto.UserRegistItemDto;
 import com.project.baggu.exception.BaseException;
 import com.project.baggu.exception.BaseResponseStatus;
-import com.project.baggu.raceCondition.Message;
-import com.project.baggu.raceCondition.OptimisticLockRaceConditionFacade;
 import com.project.baggu.repository.ItemRepository;
 import com.project.baggu.service.ItemService;
 import com.project.baggu.service.S3UploadService;
@@ -19,8 +17,6 @@ import com.project.baggu.service.TradeRequestService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +42,7 @@ public class ItemController {
   private final TradeRequestService tradeRequestService;
   private final S3UploadService s3UploadService;
   private final String IMAGE_DIR_USER = "item";
-  private final OptimisticLockRaceConditionFacade optimisticLockRaceConditionFacade;
+
 
 
   //GET baggu/item/{itemIdx}
@@ -85,6 +81,7 @@ public class ItemController {
     if(itemWriter==null || itemWriter!=authUserIdx ){
       throw new BaseException(BaseResponseStatus.UNVALID_USER);
     }
+
     return itemService.updateItem(itemIdx, updateItemDto);
   }
 
@@ -100,25 +97,9 @@ public class ItemController {
   //POST baggu/item/{itemIdx}
   //유저가 신청메세지와 함께 바꾸신청을 보낸다.
   @PostMapping("/{itemIdx}")
-  public ResponseEntity<Message> tradeRequest(@PathVariable("itemIdx") Long itemIdx, @RequestBody TradeRequestDto tradeRequestDto){
+  public TradeRequestNotifyDto tradeRequest(@PathVariable("itemIdx") Long itemIdx, @RequestBody TradeRequestDto tradeRequestDto){
 
-    TradeRequestNotifyDto tradeRequestNotifyDto = null;
-    Message message = new Message();
-    try{
-      tradeRequestNotifyDto = optimisticLockRaceConditionFacade.tradeRequest(itemIdx, tradeRequestDto);
-      if(tradeRequestNotifyDto==null){
-        return new ResponseEntity<>(message, HttpStatus.OK);
-      }
-      else{
-        message.setMessage("Success");
-        message.setData(tradeRequestNotifyDto);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-      }
-    }
-    catch (Exception e){
-      message.setMessage("서버 오류");
-      return new ResponseEntity<>(message, HttpStatus.OK);
-    }
+    return itemService.tradeRequest(itemIdx, tradeRequestDto);
   }
 
 

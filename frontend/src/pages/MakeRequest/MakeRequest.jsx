@@ -55,6 +55,9 @@ function MakeRequest() {
   // 바꾸 신청 대상 아이템 pk
   const { itemIdx } = useParams();
 
+  // 바꾸 신청자 user
+  const userIdx = localStorage.getItem('userIdx');
+
   // store
   const {
     requestItemIdxList,
@@ -71,17 +74,12 @@ function MakeRequest() {
 
   useEffect(() => {
     // 최초 렌더링시 해야할 일
-    // useritems API 요청하여 받아오기
+    // 1. useritems API 요청하여 받아오기
     // get_user_item(userIdx);
     //     .then(data => setUserItems(data))
     //     .catch(err => console.log(err));
-
-    // 바꾸 신청자 user
-    // userIdx
-    // const userIdx = localStorage.getItem('userIdx');
-    const userIdx = 1;
     saveRequestUserIdx(userIdx);
-    console.log('userIdx', userIdx);
+    setSelectedItems(requestItemIdxList);
 
     // 더미데이터
     setUserItems([

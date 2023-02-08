@@ -24,27 +24,15 @@ const axiosAuthApi = (url, options) => {
   return instance;
 };
 
-// 알림서버로 요청 보내는 axios 인스턴스
-const axiosNotifyApi = (url, options) => {
-  const instance = axios.create({
-    baseURL: requests.notify_base_url,
-    headers: { Authorization: token },
-    ...options,
-  });
-  return instance;
-};
-
-// 채팅서버로 요청 보내는 axios 인스턴스
-const axiosChatApi = (url, options) => {
-  const instance = axios.create({
-    baseURL: requests.chat_base_url,
-    headers: { Authorization: token },
-    ...options,
-  });
-  return instance;
-};
+// // // SSE axios 인스턴스
+// const sseApi = url => {
+//   const instance = axios.create({
+//     baseURL: url,
+//     responseType: 'stream',
+//   });
+//   return instance;
+// };
 
 export const defaultInstance = axiosApi(BASE_URL);
 export const authInstance = axiosAuthApi(BASE_URL);
-export const notifyAuthApi = axiosNotifyApi(BASE_URL);
-export const chatAuthApi = axiosChatApi(BASE_URL);
+// export const sseInstance = sseApi(BASE_URL);

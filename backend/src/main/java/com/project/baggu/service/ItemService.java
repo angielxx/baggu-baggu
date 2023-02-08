@@ -249,15 +249,8 @@ public class ItemService {
     return list;
   }
 
-
   @Transactional
-  public TradeRequestNotifyDto tradeRequest(Long itemIdx, TradeRequestDto tradeRequestDto){
-
-    Item item = itemRepository.findByIdLock(itemIdx);
-    String nickname = item.getUser().getNickname();
-    if (item.getUserRequestCount() >= 10) return null;
-    item.setUserRequestCount(item.getUserRequestCount()+1);
-    itemRepository.save(item);
+  public TradeRequestNotifyDto tradeRequest(Long itemIdx, TradeRequestDto tradeRequestDto) {
 
     TradeRequest tradeRequest = new TradeRequest();
     tradeRequest.setRequestUser(userRepository.findById(tradeRequestDto.getRequestUserIdx()).get());
@@ -271,12 +264,16 @@ public class ItemService {
       tradeDetailRepository.save(tradeDetail);
     }
     User user = userRepository.findById(tradeRequestDto.getRequestUserIdx()).get();
+    Item item = itemRepository.findById(itemIdx).get();
     user.setTradeCount(user.getTradeCount()+1);
+    item.setUserRequestCount(item.getUserRequestCount()+1);
+
     TradeRequestNotifyDto tn = new TradeRequestNotifyDto();
+
     tn.setReceiveUserIdx(item.getUser().getUserIdx());
     tn.setType(0);
-    tn.setTypeIdx(itemIdx);
-    tn.setRequestUserNickName(nickname);
+    tn.setTypeIdx(item.getItemIdx());
+    tn.setRequestUserNickName(item.getUser().getNickname());
     return tn;
   }
 

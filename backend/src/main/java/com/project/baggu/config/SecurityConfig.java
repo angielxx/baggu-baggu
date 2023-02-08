@@ -78,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizationEndpoint().authorizationRequestRepository(
             oAuth2CookieAuthorizationRequestRepository)
         .and().userInfoEndpoint().userService(oAuth2UserService)
-        .and().permitAll();
+            .and().permitAll();
 
     //jwt custom filter 및 entry point 설정
     http.addFilterBefore(new JwtTokenFilter(new JwtTokenProvider()), OAuth2AuthorizationRequestRedirectFilter.class)
@@ -106,15 +106,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     CorsConfiguration configuration = new CorsConfiguration();
 
     configuration.addAllowedOriginPattern("*");
+//    configuration.addAllowedOrigin("*");
+    configuration.addAllowedHeader("*");
+    configuration.addAllowedMethod("*");
+    configuration.setAllowCredentials(true);
 
-    //custom header 설정
     configuration.addAllowedHeader("Authorization");
     configuration.addAllowedHeader("Content-Type");
     configuration.addExposedHeader("Authorization");
-    configuration.addExposedHeader("Content-Type");
-
-    configuration.addAllowedMethod("*");
-    configuration.setAllowCredentials(true);
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
