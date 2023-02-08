@@ -9,6 +9,7 @@ import com.project.baggu.exception.FilterExceptionHandler;
 import com.project.baggu.repository.OAuth2CookieAuthorizationRequestRepository;
 import com.project.baggu.service.OAuth2UserService;
 import com.project.baggu.utils.JwtTokenProvider;
+import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -22,6 +23,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -52,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     //security 기능 관련 설정
-    http.cors().and()
+    http.cors().configurationSource(corsConfigurationSource()).and()
         .httpBasic().disable() //rest니까 http 기본 설정 꺼주고
         .csrf().disable() //마찬가지로 csrf 검사 꺼주고
         .formLogin().disable() //form 로그인 형식 인증 꺼주고
@@ -96,5 +100,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     return new BCryptPasswordEncoder();
   }
 
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration configuration = new CorsConfiguration();
+
+    configuration.addAllowedOrigin("*");
+    configuration.addAllowedHeader("*");
+    configuration.addAllowedMethod("*");
+    configuration.setAllowCredentials(true);
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
+  }
 
 }
