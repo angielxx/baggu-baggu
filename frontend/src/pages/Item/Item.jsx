@@ -21,7 +21,7 @@ const Container = styled.div`
 `;
 const Wrapper = tw.div`flex p-2 border-b justify-between hover:bg-primary-hover`;
 const Info = styled.div`
-  ${tw`relative flex mr-2 overflow-hidden box-content whitespace-nowrap text-ellipsis`}
+  ${tw`relative flex mr-2 overflow-hidden box-content whitespace-nowrap text-ellipsis max-h-[72px]`}
   ${css`
     width: calc(100% - 112px);
   `}
