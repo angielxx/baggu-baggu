@@ -7,7 +7,7 @@ import tw, { styled, css } from 'twin.macro';
 // ex) 유저pk를 불러와서 이용자와 열람하려는 사용자의 정보가 같을경우 내 프로필 페이지로, 아니라면 유저상세정보 페이지로
 
 const Wrapper = styled.div`
-  ${tw`p-2 flex`}
+  ${tw`p-2 flex border-b`}
 `;
 
 const InfoContainer = styled.div`

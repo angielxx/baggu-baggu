@@ -65,24 +65,27 @@ function TopBar1() {
     >
       <div>
         {/* 동네설정 url은 임시 */}
-        <Link to="/dong" className="flex items-center">
+        <Link
+          to={`/myprofile/${localStorage.getItem('userIdx')}/town`}
+          className="flex items-center"
+        >
           <img
             src={locationIcon}
             alt="icon-search"
-            className="w-[40px] h-[40px]"
+            className="w-4 h-4 relative top-[-1px] mr-[4px]"
           />
           <span className="font-pretendard text-h3 text-primary">{dong}</span>
         </Link>
       </div>
-      <div className="flex">
+      <div className="flex items-center relative top-[-1px]">
         <Link to="/search">
-          <img src={search} alt="icon-search" className="w-[40px] h-[40px]" />
+          <img src={search} alt="icon-search" className="w-4 h-4" />
         </Link>
-        <Link to="/notification" className="relative w-[40px] h-[40px]">
+        <Link to="/notification" className="relative w-4 h-4">
           <img
             src={notification}
             alt="icon-notification"
-            className="absolute w-[40px] h-[40px]"
+            className="absolute w-4 h-4"
           />
           <Notify notifyCount={notifyCount}></Notify>
         </Link>
