@@ -56,6 +56,7 @@ function UserDetail() {
     async () => await get_user(id)
   );
   console.log('userInfo', userInfo);
+  // 유저의 등록물품 GET
   const { data: userItems, isSuccess: isUserItemsSuccess } = useQuery(
     ['getUserItems', { userIdx: id }],
     async () => await get_user_item(id)
@@ -68,16 +69,16 @@ function UserDetail() {
     // { onSuccess: data => setTrades(data) }
   );
   // 유저의 후기 GET
-  const { data } = useQuery(
+  const { data: userReviews } = useQuery(
     ['getUserReviews', { userIdx: id }],
-    async () => await get_user_review(id),
-    {
-      onSuccess: data => {
-        console.log('get user reviews', data);
-        setTagReviews(data.reviewTag);
-        // setTextReviews(data.)
-      },
-    }
+    async () => await get_user_review(id)
+    // {
+    // onSuccess: data => {
+    // console.log('get user reviews', data);
+    // setTagReviews(data.reviewTag);
+    // setTextReviews(data.)
+    // },
+    // }
   );
 
   /*
@@ -108,6 +109,8 @@ function UserDetail() {
   */
 
   console.log('userItems', userItems);
+  console.log('userTrades', userTrades);
+  console.log('userReviews', userReviews);
 
   return (
     <div>
@@ -125,17 +128,13 @@ function UserDetail() {
         </div>
         <div className={`${page === 1 ? '' : 'hidden'}`}>
           {userTrades
-            ? userTrades.map((trade, idx) => (
+            ? userTrades.items.map((trade, idx) => (
                 <BagguListItem key={idx} baggu={trade} />
               ))
             : ''}
         </div>
         <div className={`${page === 2 ? '' : 'hidden'}`}>
-          {tagReviews ? (
-            <TagReviewList tags={tagReviews} />
-          ) : (
-            '받은 유저 후기가 없습니다.'
-          )}
+          {tagReviews ? <TagReviewList tags={tagReviews} /> : ''}
         </div>
       </ListWrapper>
     </div>
