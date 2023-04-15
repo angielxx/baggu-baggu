@@ -48,13 +48,14 @@ function ModalOverlay({
   < props >
   1. title : 모달 상단에 표시될 제목입니다. (없어도 됩니다.)
   2. content : 모달
+  3. confirmText : 확인 버튼에 들어갈 텍스트
+  4. cancelText : 취소 버튼에 들어갈 텍스트
+  5. onCancel : 취소 버튼을 누르면 실행될 함수
+  6. onConfirm : 확인 버튼을 누르면 실행될 함수
   */
 
   return (
     <ModalContainer>
-      {/* <div>
-        <img src={icon_close} alt="" />
-      </div> */}
       <Head>
         <Title>{title}</Title>
         <p>{content}</p>
